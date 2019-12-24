@@ -1,4 +1,4 @@
-{% set version = "2.88" %}
+{% set version = "2.89" %}
 
 package:
   name: bullet
@@ -7,7 +7,7 @@ package:
 source:
   fn: bullet3-{{ version }}.tar.gz
   url: https://github.com/bulletphysics/bullet3/archive/{{ version }}.tar.gz
-  sha256: 21c135775527754fc2929db1db5144e92ad0218ae72840a9f162acb467a7bbf9
+  sha256: 621b36e91c0371933f3c2156db22c083383164881d2a6b84636759dc4cbb0bb8
   patches:
     # https://github.com/bulletphysics/bullet3/pull/2055
     - pybullet-fixes.patch
@@ -17,7 +17,7 @@ source:
     - PR2232.patch
 
 build:
-  number: 1001
+  number: 0
 
 requirements:
   build:
