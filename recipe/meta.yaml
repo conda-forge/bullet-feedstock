@@ -9,12 +9,8 @@ source:
   url: https://github.com/bulletphysics/bullet3/archive/{{ version }}.tar.gz
   sha256: 621b36e91c0371933f3c2156db22c083383164881d2a6b84636759dc4cbb0bb8
   patches:
-    # https://github.com/bulletphysics/bullet3/pull/2055
-    - pybullet-fixes.patch
     # wont build on linux+win
-    - disable-sharedmemory.patch
-    # https://github.com/bulletphysics/bullet3/pull/2232
-    - PR2232.patch
+    #- disable-sharedmemory.patch
 
 build:
   number: 0
@@ -24,11 +20,9 @@ requirements:
     - cmake
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - msinttypes  # [win and py27]
   host:
     - python
     - numpy
-    - msinttypes  # [win and py27]
   run:
     - python
     - {{ pin_compatible('numpy') }}
