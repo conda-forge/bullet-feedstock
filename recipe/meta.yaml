@@ -1,34 +1,27 @@
-{% set version = "2.88" %}
+{% set name = "bullet" %}
+{% set version = "3.0.3" %}
 
 package:
-  name: bullet
+  name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: bullet3-{{ version }}.tar.gz
-  url: https://github.com/bulletphysics/bullet3/archive/{{ version }}.tar.gz
-  sha256: 21c135775527754fc2929db1db5144e92ad0218ae72840a9f162acb467a7bbf9
-  patches:
-    # https://github.com/bulletphysics/bullet3/pull/2055
-    - pybullet-fixes.patch
-    # wont build on linux+win
-    - disable-sharedmemory.patch
-    # https://github.com/bulletphysics/bullet3/pull/2232
-    - PR2232.patch
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: b2457214fc54932a6bfba62c9e4b781840aed799734187e147df33a83b472b7c
 
 build:
-  number: 1001
+  script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
+  number: 0
 
 requirements:
   build:
-    - cmake
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - msinttypes  # [win and py27]
   host:
     - python
-    - numpy
-    - msinttypes  # [win and py27]
+    - pip
+    - setuptools
   run:
     - python
     - {{ pin_compatible('numpy') }}
