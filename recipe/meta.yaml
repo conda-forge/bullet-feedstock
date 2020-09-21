@@ -1,3 +1,4 @@
+{% set pypi_name = "pybullet" %}
 {% set name = "bullet" %}
 {% set version = "3.0.3" %}
 
@@ -6,8 +7,8 @@ package:
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  fn: {{ pypi_name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ pypi_name[0] }}/{{ pypi_name }}/{{ pypi_name }}-{{ version }}.tar.gz
   sha256: b2457214fc54932a6bfba62c9e4b781840aed799734187e147df33a83b472b7c
 
 build:
