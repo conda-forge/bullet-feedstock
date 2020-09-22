@@ -27,6 +27,7 @@ requirements:
     - numpy >=1.11
     - wheel
   run:
+    - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx]
     - python
     - {{ pin_compatible('numpy') }}
 
