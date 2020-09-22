@@ -17,12 +17,14 @@ build:
 
 requirements:
   build:
+    - cmake
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
   host:
     - python
     - pip
     - setuptools
+    - numpy >=1.11
   run:
     - python
     - {{ pin_compatible('numpy') }}
