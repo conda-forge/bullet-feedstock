@@ -3,7 +3,7 @@ About bullet
 
 Home: http://bulletphysics.org
 
-Package license: zlib
+Package license: Zlib
 
 Feedstock license: BSD-3-Clause
 
