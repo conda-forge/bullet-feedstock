@@ -5,11 +5,9 @@ Home: http://bulletphysics.org
 
 Package license: Zlib
 
-Feedstock license: BSD-3-Clause
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/bullet-feedstock/blob/master/LICENSE.txt)
 
 Summary: Bullet Physics SDK real-time collision detection and multi-physics simulation for VR, games, visual effects, robotics, machine learning etc.
-
-
 
 Current build status
 ====================
