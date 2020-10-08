@@ -1,4 +1,4 @@
-{% set version = "2.89" %}
+{% set version = "3.06" %}
 
 package:
   name: bullet
@@ -7,7 +7,7 @@ package:
 source:
   fn: bullet3-{{ version }}.tar.gz
   url: https://github.com/bulletphysics/bullet3/archive/{{ version }}.tar.gz
-  sha256: 621b36e91c0371933f3c2156db22c083383164881d2a6b84636759dc4cbb0bb8
+  sha256: 217c1d198ee00be7e40d4cb4d79882e37ef4a06cbfbe11f5fbc207c347a57020
   patches:
     # linux: examples/ThirdPartyLibs/openvr/bin/linux64/libopenvr_api.so: undefined reference to `memcpy@GLIBC_2.14'
     - disable-sharedmemory.patch
@@ -34,11 +34,10 @@ test:
     - pybullet
 
 about:
-  home:  http://bulletphysics.org
+  home: http://bulletphysics.org
   license: Zlib
   license_file: LICENSE.txt
-  summary: Bullet Physics SDK real-time collision detection
-    and multi-physics simulation for VR, games, visual effects, robotics, machine learning etc.
+  summary: Bullet Physics SDK real-time collision detection and multi-physics simulation for VR, games, visual effects, robotics, machine learning etc.
 
 extra:
   recipe-maintainers:
