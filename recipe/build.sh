@@ -3,7 +3,7 @@
 mkdir build && cd build
 
 cmake \
-  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_BUILD_TYPE=RelWithDebInfo \
   -DCMAKE_PREFIX_PATH=${PREFIX} \
   -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DCMAKE_INSTALL_RPATH="${PREFIX}/lib" -DCMAKE_BUILD_WITH_INSTALL_RPATH=ON -DCMAKE_MACOSX_RPATH=ON \
@@ -19,3 +19,8 @@ cmake \
   -DPYTHON_VERSION_PYBULLET=${PY_VER} \
   ..
 make install -j${CPU_COUNT}
+python -c "import pybullet" || echo "FAIL"
+echo -e "run\nbt\nquit\n" > test.gdb
+cat test.gdb
+gdb --batch --command=test.gdb --args ${PYTHON} -c "import pybullet"
+

@@ -22,6 +22,7 @@ requirements:
     - make  # [unix]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+    - gdb
   host:
     - python
     - numpy
