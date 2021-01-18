@@ -15,7 +15,7 @@ source:
     - disable-bullet3opencl.patch  # [ppc64le]
 
 build:
-  number: 2
+  number: 3
 
 requirements:
   build:
