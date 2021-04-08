@@ -15,6 +15,7 @@ source:
     # The setup.py hardcodes a custom logic to decide the number of compilation threads, 
     # let's override it for memory limited architectures (as of early 2021, travis with ppc64le)
     - setup-py-single-thread-compilation.patch  # [ppc64le]
+    - use-config-python-libs.patch
 
 build:
   number: 1
