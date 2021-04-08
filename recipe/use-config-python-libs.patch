@@ -1,0 +1,22 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index a695b71726..8d7acc9eb2 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -346,7 +346,7 @@ IF(BUILD_PYBULLET)
+ 	FIND_PACKAGE(PythonInterp ${PYTHON_VERSION_PYBULLET} ${EXACT_PYTHON_VERSION_FLAG})
+ 	# python library should exactly match that of the interpreter
+ 	# the following can result in fatal error if you don't have the right python configuration
+-	FIND_PACKAGE(PythonLibs ${PYTHON_VERSION_STRING} EXACT)
++	FIND_PACKAGE(PythonLibs CONFIG ${PYTHON_VERSION_STRING} EXACT)
+ ENDIF(BUILD_PYBULLET)
+ 
+ OPTION(BUILD_ENET "Set when you want to build apps with enet UDP networking support" ON)
+@@ -354,7 +354,7 @@ OPTION(BUILD_CLSOCKET "Set when you want to build apps with enet TCP networking
+ 
+ 
+ IF(BUILD_PYBULLET)
+-	FIND_PACKAGE(PythonLibs)
++	FIND_PACKAGE(PythonLibs CONFIG)
+ 
+ 	OPTION(BUILD_PYBULLET_NUMPY "Set when you want to build pybullet with NumPy support" OFF)
+ 	OPTION(BUILD_PYBULLET_ENET "Set when you want to build pybullet with enet UDP networking support" ON)
