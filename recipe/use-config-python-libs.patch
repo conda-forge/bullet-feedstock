@@ -11,3 +11,14 @@ index cebac58f42..fcc5724cd0 100644
  
    if(NOT _FIND_LIB_PYTHON_PY)
      message(FATAL_ERROR "Could not find required file 'FindLibPython.py'")
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index a695b71726..fd9419ce98 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,4 +1,5 @@
+-cmake_minimum_required(VERSION 2.4.3)
++cmake_minimum_required(VERSION 3.0.0)
++set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
+ set(CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS true)
+ cmake_policy(SET CMP0017 NEW)
+ #this line has to appear before 'PROJECT' in order to be able to disable incremental linking
