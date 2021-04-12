@@ -1,22 +1,13 @@
-diff --git a/CMakeLists.txt b/CMakeLists.txt
-index a695b71726..8d7acc9eb2 100644
---- a/CMakeLists.txt
-+++ b/CMakeLists.txt
-@@ -346,7 +346,7 @@ IF(BUILD_PYBULLET)
- 	FIND_PACKAGE(PythonInterp ${PYTHON_VERSION_PYBULLET} ${EXACT_PYTHON_VERSION_FLAG})
- 	# python library should exactly match that of the interpreter
- 	# the following can result in fatal error if you don't have the right python configuration
--	FIND_PACKAGE(PythonLibs ${PYTHON_VERSION_STRING} EXACT)
-+	FIND_PACKAGE(PythonLibs CONFIG ${PYTHON_VERSION_STRING} EXACT REQUIRED)
- ENDIF(BUILD_PYBULLET)
+diff --git a/build3/cmake/FindPythonLibs.cmake b/build3/cmake/FindPythonLibs.cmake
+index cebac58f42..fcc5724cd0 100644
+--- a/build3/cmake/FindPythonLibs.cmake
++++ b/build3/cmake/FindPythonLibs.cmake
+@@ -112,7 +112,7 @@ else()
  
- OPTION(BUILD_ENET "Set when you want to build apps with enet UDP networking support" ON)
-@@ -354,7 +354,7 @@ OPTION(BUILD_CLSOCKET "Set when you want to build apps with enet TCP networking
+   message(STATUS "Looking for versions: ${_PYTHON_VERSIONS}")
  
+-  FIND_FILE(_FIND_LIB_PYTHON_PY FindLibPython.py PATHS ${CMAKE_MODULE_PATH} ${CMAKE_ROOT}/Modules)
++  FIND_FILE(_FIND_LIB_PYTHON_PY FindLibPython.py PATHS ${CMAKE_MODULE_PATH} ${CMAKE_ROOT}/Modules ${CMAKE_CURRENT_SOURCE_DIR})
  
- IF(BUILD_PYBULLET)
--	FIND_PACKAGE(PythonLibs)
-+	FIND_PACKAGE(PythonLibs CONFIG REQUIRED)
- 
- 	OPTION(BUILD_PYBULLET_NUMPY "Set when you want to build pybullet with NumPy support" OFF)
- 	OPTION(BUILD_PYBULLET_ENET "Set when you want to build pybullet with enet UDP networking support" ON)
+   if(NOT _FIND_LIB_PYTHON_PY)
+     message(FATAL_ERROR "Could not find required file 'FindLibPython.py'")
