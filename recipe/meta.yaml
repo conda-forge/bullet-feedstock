@@ -1,4 +1,4 @@
-{% set version = "3.17" %}
+{% set version = "3.21" %}
 
 package:
   name: bullet
@@ -7,7 +7,7 @@ package:
 source:
   fn: bullet3-{{ version }}.tar.gz
   url: https://github.com/bulletphysics/bullet3/archive/{{ version }}.tar.gz
-  sha256: baa642c906576d4d98d041d0acb80d85dd6eff6e3c16a009b1abf1ccd2bc0a61
+  sha256: 49d1ee47aa8cbb0bc6bb459f0a4cfb9579b40e28f5c7d9a36c313e3031fb3965
   patches:
     - add_rt.patch  # [linux]
     # On ppc64le compilation of Bullet3OpenCL fails (https://github.com/conda-forge/bullet-feedstock/issues/24)
@@ -17,7 +17,7 @@ source:
     - setup-py-single-thread-compilation.patch  # [ppc64le]
 
 build:
-  number: 1
+  number: 0
 
 outputs:
   - name: bullet-cpp
