@@ -1,4 +1,4 @@
-{% set version = "3.21" %}
+{% set version = "3.25" %}
 
 package:
   name: bullet
@@ -7,7 +7,7 @@ package:
 source:
   fn: bullet3-{{ version }}.tar.gz
   url: https://github.com/bulletphysics/bullet3/archive/{{ version }}.tar.gz
-  sha256: 49d1ee47aa8cbb0bc6bb459f0a4cfb9579b40e28f5c7d9a36c313e3031fb3965
+  sha256: c45afb6399e3f68036ddb641c6bf6f552bf332d5ab6be62f7e6c54eda05ceb77
   patches:
     - add_rt.patch  # [linux]
     # On ppc64le compilation of Bullet3OpenCL fails (https://github.com/conda-forge/bullet-feedstock/issues/24)
@@ -19,7 +19,7 @@ source:
     - double-precision-postfix.patch
 
 build:
-  number: 4
+  number: 0
 
 outputs:
   - name: bullet-cpp
