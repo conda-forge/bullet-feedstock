@@ -40,9 +40,8 @@ outputs:
         - {{ compiler("c") }}
         - {{ stdlib("c") }}
         - {{ compiler("cxx") }}
-        - {{ cdt('mesa-libgl-devel') }}    # [linux]
-        - {{ cdt('mesa-dri-drivers') }}    # [linux]
       host:
+        - libgl-devel    # [linux]
         - xorg-libx11    # [unix]
         - xorg-libxext   # [unix]
         - python
@@ -85,6 +84,8 @@ outputs:
         - setuptools
         - wheel
         - numpy
+        - minizip
+        - zlib
       run:
         - {{ pin_subpackage("bullet-cpp", exact=True) }}
         - python
