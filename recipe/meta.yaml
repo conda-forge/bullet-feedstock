@@ -17,6 +17,7 @@ source:
     - setup-py-single-thread-compilation.patch  # [ppc64le]
     - fix-find-pythonlibs.patch  # [linux]
     - double-precision-postfix.patch
+    - devendorminizip.patch
 
 build:
   number: 4
