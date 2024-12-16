@@ -16,7 +16,7 @@ index 2ef922a01a..50784c528d 100644
  include_dirs = []
  
 +# Devendor some libraries
-+libraries += ['minizip', 'zlib']
++libraries += ['minizip', 'z']
 +
  try:
    import numpy
