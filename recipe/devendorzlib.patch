@@ -1,0 +1,98 @@
+From d1a9ad7a2e0af4c29ac68222cbea91f370435997 Mon Sep 17 00:00:00 2001
+From: Silvio Traversaro <silvio@traversaro.it>
+Date: Mon, 16 Dec 2024 15:46:05 +0100
+Subject: [PATCH] Devendor minizip and zlib
+
+---
+ setup.py | 27 ++++++---------------------
+ 1 file changed, 6 insertions(+), 21 deletions(-)
+
+diff --git a/setup.py b/setup.py
+index 2ef922a01a..50784c528d 100644
+--- a/setup.py
++++ b/setup.py
+@@ -88,6 +88,9 @@ def _single_compile(obj):
+ libraries = []
+ include_dirs = []
+ 
++# Devendor some libraries
++libraries += ['minizip', 'z']
++
+ try:
+   import numpy
+   NP_DIRS = [numpy.get_include()]
+@@ -157,24 +160,9 @@ def _single_compile(obj):
+ +["examples/ThirdPartyLibs/Wavefront/tiny_obj_loader.cpp"]\
+ +["examples/ThirdPartyLibs/stb_image/stb_image.cpp"]\
+ +["examples/ThirdPartyLibs/stb_image/stb_image_write.cpp"]\
+ +["examples/ThirdPartyLibs/minizip/ioapi.c"]\
+ +["examples/ThirdPartyLibs/minizip/unzip.c"]\
+ +["examples/ThirdPartyLibs/minizip/zip.c"]\
+-+["examples/ThirdPartyLibs/zlib/adler32.c"]\
+-+["examples/ThirdPartyLibs/zlib/compress.c"]\
+-+["examples/ThirdPartyLibs/zlib/crc32.c"]\
+-+["examples/ThirdPartyLibs/zlib/deflate.c"]\
+-+["examples/ThirdPartyLibs/zlib/gzclose.c"]\
+-+["examples/ThirdPartyLibs/zlib/gzlib.c"]\
+-+["examples/ThirdPartyLibs/zlib/gzread.c"]\
+-+["examples/ThirdPartyLibs/zlib/gzwrite.c"]\
+-+["examples/ThirdPartyLibs/zlib/infback.c"]\
+-+["examples/ThirdPartyLibs/zlib/inffast.c"]\
+-+["examples/ThirdPartyLibs/zlib/inflate.c"]\
+-+["examples/ThirdPartyLibs/zlib/inftrees.c"]\
+-+["examples/ThirdPartyLibs/zlib/trees.c"]\
+-+["examples/ThirdPartyLibs/zlib/uncompr.c"]\
+-+["examples/ThirdPartyLibs/zlib/zutil.c"]\
+ +["examples/Importers/ImportColladaDemo/LoadMeshFromCollada.cpp"]\
+ +["examples/Importers/ImportObjDemo/LoadMeshFromObj.cpp"]\
+ +["examples/Importers/ImportObjDemo/Wavefront2GLInstanceGraphicsShape.cpp"]\
+@@ -392,7 +377,7 @@ def _single_compile(obj):
+   sources += ['examples/OpenGLWindow/EGLOpenGLWindow.cpp']
+ 
+ if _platform == "linux" or _platform == "linux2":
+-  libraries = ['dl', 'pthread']
++  libraries = ['dl', 'pthread'] + libraries
+   CXX_FLAGS += '-D_LINUX '
+   CXX_FLAGS += '-DGLEW_STATIC '
+   CXX_FLAGS += '-DGLEW_INIT_OPENGL11_FUNCTIONS=1 '
+@@ -422,7 +407,7 @@ def _single_compile(obj):
+ 
+ elif _platform == "win32":
+   print("win32!")
+-  libraries = ['Ws2_32', 'Winmm', 'User32', 'Opengl32', 'kernel32', 'glu32', 'Gdi32', 'Comdlg32']
++  libraries = ['Ws2_32', 'Winmm', 'User32', 'Opengl32', 'kernel32', 'glu32', 'Gdi32', 'Comdlg32'] + libraries
+   CXX_FLAGS += '-DWIN32 '
+   CXX_FLAGS += '-DGLEW_STATIC '
+   sources = sources + ["examples/ThirdPartyLibs/enet/win32.c"]\
+@@ -442,7 +427,7 @@ def _single_compile(obj):
+   +["examples/OpenGLWindow/MacOpenGLWindowObjC.m"]
+ else:
+   print("bsd!")
+-  libraries = ['GL', 'GLEW', 'pthread']
++  libraries = ['GL', 'GLEW', 'pthread'] + libraries
+   os.environ['LDFLAGS'] = '-L/usr/X11R6/lib'
+   CXX_FLAGS += '-D_BSD '
+   CXX_FLAGS += '-I/usr/X11R6/include '
+
+From dbadf6a95ff77c329214efd0fcec1460434d6eb4 Mon Sep 17 00:00:00 2001
+From: Silvio Traversaro <silvio@traversaro.it>
+Date: Mon, 16 Dec 2024 17:09:28 +0100
+Subject: [PATCH] Devendor only zlib
+
+---
+ examples/ThirdPartyLibs/minizip/zip.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/examples/ThirdPartyLibs/minizip/zip.h b/examples/ThirdPartyLibs/minizip/zip.h
+index 4aa5ffa4a5..879aeb7c9f 100644
+--- a/examples/ThirdPartyLibs/minizip/zip.h
++++ b/examples/ThirdPartyLibs/minizip/zip.h
+@@ -48,7 +48,7 @@ extern "C"
+ 	//#define HAVE_BZIP2
+ 
+ #ifndef _ZLIB_H
+-#include "../zlib/zlib.h"
++#include "zlib.h"
+ #endif
+ 
+ #ifndef _ZLIBIOAPI_H
