@@ -84,7 +84,6 @@ outputs:
         - setuptools
         - wheel
         - numpy
-        - minizip
         - zlib
       run:
         - {{ pin_subpackage("bullet-cpp", exact=True) }}
