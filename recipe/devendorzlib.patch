@@ -74,15 +74,6 @@ index 2ef922a01a..50784c528d 100644
    CXX_FLAGS += '-D_BSD '
    CXX_FLAGS += '-I/usr/X11R6/include '
 
-From dbadf6a95ff77c329214efd0fcec1460434d6eb4 Mon Sep 17 00:00:00 2001
-From: Silvio Traversaro <silvio@traversaro.it>
-Date: Mon, 16 Dec 2024 17:09:28 +0100
-Subject: [PATCH] Devendor only zlib
-
----
- examples/ThirdPartyLibs/minizip/zip.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
 diff --git a/examples/ThirdPartyLibs/minizip/zip.h b/examples/ThirdPartyLibs/minizip/zip.h
 index 4aa5ffa4a5..879aeb7c9f 100644
 --- a/examples/ThirdPartyLibs/minizip/zip.h
