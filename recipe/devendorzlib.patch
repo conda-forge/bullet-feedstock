@@ -84,3 +84,56 @@ index 4aa5ffa4a5..879aeb7c9f 100644
  #endif
  
  #ifndef _ZLIBIOAPI_H
+
+diff --git a/examples/ThirdPartyLibs/minizip/ioapi.h b/examples/ThirdPartyLibs/minizip/ioapi.h
+index 6c44d4002..2f71bb255 100644
+--- a/examples/ThirdPartyLibs/minizip/ioapi.h
++++ b/examples/ThirdPartyLibs/minizip/ioapi.h
+@@ -42,7 +42,7 @@
+
+ #include <stdio.h>
+ #include <stdlib.h>
+-#include "../zlib/zlib.h"
++#include "zlib.h"
+
+ #if defined(USE_FILE32API)
+ #define fopen64 fopen
+diff --git a/examples/ThirdPartyLibs/minizip/unzip.c b/examples/ThirdPartyLibs/minizip/unzip.c
+index 7d1a3fa86..ad25eb50e 100644
+--- a/examples/ThirdPartyLibs/minizip/unzip.c
++++ b/examples/ThirdPartyLibs/minizip/unzip.c
+@@ -71,7 +71,7 @@
+ #define NOUNCRYPT
+ #endif
+
+-#include "../zlib/zlib.h"
++#include "zlib.h"
+ #include "unzip.h"
+
+ #ifdef STDC
+diff --git a/examples/ThirdPartyLibs/minizip/unzip.h b/examples/ThirdPartyLibs/minizip/unzip.h
+index 29cf2c046..13eda329e 100644
+--- a/examples/ThirdPartyLibs/minizip/unzip.h
++++ b/examples/ThirdPartyLibs/minizip/unzip.h
+@@ -49,7 +49,7 @@ extern "C"
+ #endif
+
+ #ifndef _ZLIB_H
+-#include "../zlib/zlib.h"
++#include "zlib.h"
+ #endif
+
+ #ifndef _ZLIBIOAPI_H
+diff --git a/examples/ThirdPartyLibs/minizip/zip.c b/examples/ThirdPartyLibs/minizip/zip.c
+index 0b52f490d..9b522fa72 100644
+--- a/examples/ThirdPartyLibs/minizip/zip.c
++++ b/examples/ThirdPartyLibs/minizip/zip.c
+@@ -25,7 +25,7 @@
+ #include <stdlib.h>
+ #include <string.h>
+ #include <time.h>
+-#include "../zlib/zlib.h"
++#include "zlib.h"
+ #include "zip.h"
+
+ #ifdef STDC
