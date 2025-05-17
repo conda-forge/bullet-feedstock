@@ -9,6 +9,7 @@ source:
   url: https://github.com/bulletphysics/bullet3/archive/{{ version }}.tar.gz
   sha256: c45afb6399e3f68036ddb641c6bf6f552bf332d5ab6be62f7e6c54eda05ceb77
   patches:
+    - devendorzlib.patch
     - add_rt.patch  # [linux]
     # On ppc64le compilation of Bullet3OpenCL fails (https://github.com/conda-forge/bullet-feedstock/issues/24)
     - disable-bullet3opencl.patch  # [ppc64le]
@@ -17,7 +18,6 @@ source:
     - setup-py-single-thread-compilation.patch  # [ppc64le]
     - fix-find-pythonlibs.patch  # [linux]
     - double-precision-postfix.patch
-    - devendorzlib.patch
 
 build:
   number: 4

@@ -21,10 +21,7 @@ index 2ef922a01a..50784c528d 100644
  try:
    import numpy
    NP_DIRS = [numpy.get_include()]
-@@ -157,24 +160,9 @@ def _single_compile(obj):
- +["examples/ThirdPartyLibs/Wavefront/tiny_obj_loader.cpp"]\
- +["examples/ThirdPartyLibs/stb_image/stb_image.cpp"]\
- +["examples/ThirdPartyLibs/stb_image/stb_image_write.cpp"]\
+@@ -160,21 +160,6 @@ sources = ["examples/pybullet/pybullet.c"]\
  +["examples/ThirdPartyLibs/minizip/ioapi.c"]\
  +["examples/ThirdPartyLibs/minizip/unzip.c"]\
  +["examples/ThirdPartyLibs/minizip/zip.c"]\
