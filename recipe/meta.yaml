@@ -9,6 +9,7 @@ source:
   url: https://github.com/bulletphysics/bullet3/archive/{{ version }}.tar.gz
   sha256: c45afb6399e3f68036ddb641c6bf6f552bf332d5ab6be62f7e6c54eda05ceb77
   patches:
+    - devendorzlib.patch
     - add_rt.patch  # [linux]
     # On ppc64le compilation of Bullet3OpenCL fails (https://github.com/conda-forge/bullet-feedstock/issues/24)
     - disable-bullet3opencl.patch  # [ppc64le]
@@ -19,7 +20,7 @@ source:
     - double-precision-postfix.patch
 
 build:
-  number: 3
+  number: 4
 
 outputs:
   - name: bullet-cpp
@@ -34,14 +35,13 @@ outputs:
         - python                                 # [build_platform != target_platform]
         - cross-python_{{ target_platform }}     # [build_platform != target_platform]
         - numpy                                  # [build_platform != target_platform]
-        - cmake
+        - cmake <4
         - ninja
         - {{ compiler("c") }}
         - {{ stdlib("c") }}
         - {{ compiler("cxx") }}
-        - {{ cdt('mesa-libgl-devel') }}    # [linux]
-        - {{ cdt('mesa-dri-drivers') }}    # [linux]
       host:
+        - libgl-devel    # [linux]
         - xorg-libx11    # [unix]
         - xorg-libxext   # [unix]
         - python
@@ -72,7 +72,7 @@ outputs:
         - python                                 # [build_platform != target_platform]
         - cross-python_{{ target_platform }}     # [build_platform != target_platform]
         - numpy                                  # [build_platform != target_platform]
-        - cmake
+        - cmake <4
         - ninja
         - {{ compiler("c") }}
         - {{ stdlib("c") }}
@@ -84,6 +84,7 @@ outputs:
         - setuptools
         - wheel
         - numpy
+        - zlib
       run:
         - {{ pin_subpackage("bullet-cpp", exact=True) }}
         - python
