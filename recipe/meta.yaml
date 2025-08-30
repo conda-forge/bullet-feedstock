@@ -20,7 +20,7 @@ source:
     - double-precision-postfix.patch
 
 build:
-  number: 4
+  number: 5
 
 outputs:
   - name: bullet-cpp
