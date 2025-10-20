@@ -8,13 +8,6 @@ rm -f build3/cmake/FindPythonLibs.cmake
 mkdir -p build
 pushd build
 
-if [[ "${target_platform}" == "linux-ppc64le" ]]; then
-  # Disable parallel compilaton (build runs out of memory in Travis)
-  NUM_PARALLEL=-j2
-else
-  NUM_PARALLEL=
-fi
-
 export PYTHON_INCLUDE_DIR=$PREFIX/include/`ls $PREFIX/include | grep "python\|pypy"`
 
 cmake ${CMAKE_ARGS} .. \
@@ -28,13 +21,14 @@ cmake ${CMAKE_ARGS} .. \
   -DBUILD_PYBULLET=ON \
   -DBUILD_PYBULLET_NUMPY=ON \
   -DBUILD_OPENGL3_DEMOS=ON \
+  -DBUILD_UNIT_TESTS=OFF \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_SKIP_RPATH=YES \
   -DPython_EXECUTABLE=${PYTHON} \
   -DPYTHON_INCLUDE_DIRS=${PYTHON_INCLUDE_DIR} \
   -DPYTHON_INCLUDE_DIR=${PYTHON_INCLUDE_DIR}
 
-ninja $NUM_PARALLEL install
+ninja -j$CPU_COUNT install
 
 if [[ $target_platform =~ linux.* ]]; then
   install -Dm755 examples/ExampleBrowser/App_ExampleBrowser $PREFIX/bin/BulletExampleBrowser
@@ -70,4 +64,4 @@ cmake ${CMAKE_ARGS} .. \
   -DBUILD_OPENGL3_DEMOS=OFF
 
 
-ninja $NUM_PARALLEL install
+ninja -j$CPU_COUNT install

@@ -1,0 +1,5 @@
+# Workaround for https://github.com/conda-forge/bullet-feedstock/pull/67#issuecomment-3239018312
+c_compiler_version:   # [linux]
+  - 13                # [linux]
+cxx_compiler_version: # [linux]
+  - 13                # [linux]
