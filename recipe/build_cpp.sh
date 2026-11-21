@@ -2,13 +2,8 @@
 
 set -ex
 
-# Delete outdated FindPythonLibs
-rm -f build3/cmake/FindPythonLibs.cmake
-
 mkdir -p build
 pushd build
-
-export PYTHON_INCLUDE_DIR=$PREFIX/include/`ls $PREFIX/include | grep "python\|pypy"`
 
 cmake ${CMAKE_ARGS} .. \
   -GNinja \
@@ -18,15 +13,11 @@ cmake ${CMAKE_ARGS} .. \
   -DBUILD_SHARED_LIBS=ON \
   -DINSTALL_LIBS=ON \
   -DINSTALL_EXTRA_LIBS=ON \
-  -DBUILD_PYBULLET=ON \
-  -DBUILD_PYBULLET_NUMPY=ON \
+  -DBUILD_PYBULLET=OFF \
   -DBUILD_OPENGL3_DEMOS=ON \
   -DBUILD_UNIT_TESTS=OFF \
   -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_SKIP_RPATH=YES \
-  -DPython_EXECUTABLE=${PYTHON} \
-  -DPYTHON_INCLUDE_DIRS=${PYTHON_INCLUDE_DIR} \
-  -DPYTHON_INCLUDE_DIR=${PYTHON_INCLUDE_DIR}
+  -DCMAKE_SKIP_RPATH=YES
 
 ninja -j$CPU_COUNT install
 
