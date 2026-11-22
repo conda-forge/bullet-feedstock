@@ -24,7 +24,7 @@ source:
         - setup-py-single-thread-compilation.patch
 
 build:
-  number: 6
+  number: 7
 
 outputs:
   - package:
