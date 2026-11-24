@@ -1,5 +1,8 @@
 # Workaround for https://github.com/conda-forge/bullet-feedstock/pull/67#issuecomment-3239018312
-c_compiler_version:   # [linux]
+# clang 22 rejects the same pybullet.c lines as gcc 14 does
+c_compiler_version:   # [linux or osx]
   - 13                # [linux]
-cxx_compiler_version: # [linux]
+  - 21                # [osx]
+cxx_compiler_version: # [linux or osx]
   - 13                # [linux]
+  - 21                # [osx]
