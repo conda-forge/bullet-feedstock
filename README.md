@@ -71,6 +71,7 @@ Current release info
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-bullet-green.svg)](https://anaconda.org/conda-forge/bullet) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/bullet.svg)](https://anaconda.org/conda-forge/bullet) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/bullet.svg)](https://anaconda.org/conda-forge/bullet) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/bullet.svg)](https://anaconda.org/conda-forge/bullet) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-bullet--cpp-green.svg)](https://anaconda.org/conda-forge/bullet-cpp) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/bullet-cpp.svg)](https://anaconda.org/conda-forge/bullet-cpp) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/bullet-cpp.svg)](https://anaconda.org/conda-forge/bullet-cpp) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/bullet-cpp.svg)](https://anaconda.org/conda-forge/bullet-cpp) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libbullet-green.svg)](https://anaconda.org/conda-forge/libbullet) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libbullet.svg)](https://anaconda.org/conda-forge/libbullet) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libbullet.svg)](https://anaconda.org/conda-forge/libbullet) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libbullet.svg)](https://anaconda.org/conda-forge/libbullet) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-pybullet-green.svg)](https://anaconda.org/conda-forge/pybullet) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/pybullet.svg)](https://anaconda.org/conda-forge/pybullet) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/pybullet.svg)](https://anaconda.org/conda-forge/pybullet) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/pybullet.svg)](https://anaconda.org/conda-forge/pybullet) |
 
 Installing bullet
@@ -90,7 +91,7 @@ How to use
 <summary>With conda</summary>
 
 ```
-conda install bullet bullet-cpp pybullet
+conda install bullet bullet-cpp libbullet pybullet
 ```
 
 </details>
@@ -99,7 +100,7 @@ conda install bullet bullet-cpp pybullet
 <summary>With mamba</summary>
 
 ```
-mamba install bullet bullet-cpp pybullet
+mamba install bullet bullet-cpp libbullet pybullet
 ```
 
 </details>
@@ -109,9 +110,9 @@ mamba install bullet bullet-cpp pybullet
 
 ```
 # for adding to your local project
-pixi add bullet bullet-cpp pybullet
+pixi add bullet bullet-cpp libbullet pybullet
 # for installing globally
-pixi global install bullet bullet-cpp pybullet
+pixi global install bullet bullet-cpp libbullet pybullet
 ```
 
 </details>
