@@ -69,19 +69,18 @@ outputs:
         include:
           - if: linux
             then:
+              - lib/lib*.so
               - lib/lib*.so.*
-              # BussIK is installed without a versioned file name
-              - lib/libBussIK.so
           - if: osx
-            then:
-              - lib/lib*.*.dylib
-              - lib/libBussIK.dylib
+            then: lib/lib*.dylib
           - if: win
             # The Windows libraries are static, they are all in libbullet-devel
             then: Library/bin/*.dll
         exclude:
           - if: unix
             then:
+              - lib/libOpenGLWindow.*
+              - lib/libgwen.*
               - lib/libBulletExampleBrowserLib.*
               - lib/libBulletRoboticsGUI.*
     requirements:
@@ -94,14 +93,20 @@ outputs:
             exists:
               - if: linux
                 then:
+                  - lib/libBulletDynamics.so
                   - lib/libBulletDynamics.so.*
+                  - lib/libBulletDynamics-float64.so
                   - lib/libBulletDynamics-float64.so.*
+                  - lib/libBulletRobotics.so
                   - lib/libBulletRobotics.so.*
                   - lib/libBussIK.so
               - if: osx
                 then:
+                  - lib/libBulletDynamics.dylib
                   - lib/libBulletDynamics.*.dylib
+                  - lib/libBulletDynamics-float64.dylib
                   - lib/libBulletDynamics-float64.*.dylib
+                  - lib/libBulletRobotics.dylib
                   - lib/libBulletRobotics.*.dylib
                   - lib/libBussIK.dylib
             not_exists:
@@ -129,12 +134,10 @@ outputs:
         exclude:
           - if: linux
             then:
+              - lib/lib*.so
               - lib/lib*.so.*
-              - lib/libBussIK.so
           - if: osx
-            then:
-              - lib/lib*.*.dylib
-              - lib/libBussIK.dylib
+            then: lib/lib*.dylib
           - if: unix
             then:
               - bin/BulletExampleBrowser
@@ -173,23 +176,13 @@ outputs:
                   - Library/lib/cmake/bullet/BulletConfig.cmake
                   - Library/lib/BussIK.lib
                   - Library/lib/BulletCollision.lib
-              - if: linux
-                then:
-                  - lib/libBulletDynamics.so
-                  - lib/libBulletDynamics-float64.so
-              - if: osx
-                then:
-                  - lib/libBulletDynamics.dylib
-                  - lib/libBulletDynamics-float64.dylib
             not_exists:
               - if: linux
                 then:
+                  - lib/lib*.so
                   - lib/lib*.so.*
-                  - lib/libBussIK.so
               - if: osx
-                then:
-                  - lib/lib*.*.dylib
-                  - lib/libBussIK.dylib
+                then: lib/lib*.dylib
               - if: unix
                 then:
                   - bin/BulletExampleBrowser
