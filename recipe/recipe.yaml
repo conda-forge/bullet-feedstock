@@ -84,6 +84,10 @@ outputs:
               - lib/libBulletExampleBrowserLib.*
               - lib/libBulletRoboticsGUI.*
     requirements:
+      build:
+        # The linking check reads the system libraries from the sysroot in the build environment of each output
+        - if: linux
+          then: ${{ stdlib("c") }}
       run_constraints:
         # bullet-cpp builds from before the libbullet split ship the same files
         - bullet-cpp ==${{ version }} *_${{ build_number }}
@@ -215,6 +219,10 @@ outputs:
             - Library/lib/BulletExampleBrowserLib.lib
             - Library/lib/BulletRoboticsGUI.lib
     requirements:
+      build:
+        # The linking check reads the system libraries from the sysroot in the build environment of each output
+        - if: linux
+          then: ${{ stdlib("c") }}
       host:
         - ${{ pin_subpackage("libbullet", exact=True) }}
         - if: linux
