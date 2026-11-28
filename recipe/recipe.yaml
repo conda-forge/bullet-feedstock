@@ -2,6 +2,7 @@ schema_version: 1
 
 context:
   version: "3.25"
+  build_number: 7
 
 recipe:
   name: bullet
@@ -24,11 +25,11 @@ source:
         - setup-py-single-thread-compilation.patch
 
 build:
-  number: 6
+  number: ${{ build_number }}
 
 outputs:
-  - package:
-      name: bullet-cpp
+  - staging:
+      name: bullet-cpp-build
     build:
       script:
         - if: unix
@@ -42,7 +43,7 @@ outputs:
         - ${{ stdlib("c") }}
         - ${{ compiler("cxx") }}
       host:
-        # No python here on purpose: bullet-cpp is independent of the Python version,
+        # No python here on purpose: the C++ build is independent of the Python version,
         # the Python bindings are built from source in the pybullet output
         - if: linux
           then: libgl-devel
@@ -50,7 +51,190 @@ outputs:
           then:
             - xorg-libx11
             - xorg-libxext
+      ignore_run_exports:
+        # OpenGL and X11 are only used by the example browser libraries shipped in bullet-cpp
+        from_package:
+          - if: linux
+            then: libgl-devel
+          - if: unix
+            then:
+              - xorg-libx11
+              - xorg-libxext
+
+  - package:
+      name: libbullet
+    inherit: bullet-cpp-build
+    build:
+      files:
+        include:
+          - if: linux
+            then:
+              - lib/lib*.so
+              - lib/lib*.so.*
+          - if: osx
+            then: lib/lib*.dylib
+          - if: win
+            # The Windows libraries are static, they are all in libbullet-devel
+            then: Library/bin/*.dll
+        exclude:
+          - if: unix
+            then:
+              - lib/libOpenGLWindow.*
+              - lib/libgwen.*
+              - lib/libBulletExampleBrowserLib.*
+              - lib/libBulletRoboticsGUI.*
+    requirements:
+      build:
+        # The linking check reads the system libraries from the sysroot in the build environment of each output
+        - if: linux
+          then: ${{ stdlib("c") }}
+      run_constraints:
+        # bullet-cpp builds from before the libbullet split ship the same files
+        - bullet-cpp ==${{ version }} *_${{ build_number }}
+    tests:
+      - package_contents:
+          files:
+            exists:
+              - if: linux
+                then:
+                  - lib/libBulletDynamics.so
+                  - lib/libBulletDynamics.so.*
+                  - lib/libBulletDynamics-float64.so
+                  - lib/libBulletDynamics-float64.so.*
+                  - lib/libBulletRobotics.so
+                  - lib/libBulletRobotics.so.*
+                  - lib/libBussIK.so
+              - if: osx
+                then:
+                  - lib/libBulletDynamics.dylib
+                  - lib/libBulletDynamics.*.dylib
+                  - lib/libBulletDynamics-float64.dylib
+                  - lib/libBulletDynamics-float64.*.dylib
+                  - lib/libBulletRobotics.dylib
+                  - lib/libBulletRobotics.*.dylib
+                  - lib/libBussIK.dylib
+            not_exists:
+              - if: unix
+                then:
+                  - include/**
+                  - lib/cmake/**
+                  - lib/pkgconfig/**
+                  - lib/libBulletExampleBrowserLib.*
+                  - lib/libBulletRoboticsGUI.*
+                  - lib/libOpenGLWindow.*
+                  - lib/libgwen.*
+                  - opt/bullet/**
+                else:
+                  - Library/include/**
+                  - Library/lib/**
+
+  - package:
+      name: libbullet-devel
+    inherit: bullet-cpp-build
+    build:
+      files:
+        include:
+          - "**"
+        exclude:
+          - if: linux
+            then:
+              - lib/lib*.so
+              - lib/lib*.so.*
+          - if: osx
+            then: lib/lib*.dylib
+          - if: unix
+            then:
+              - bin/BulletExampleBrowser
+              - lib/libOpenGLWindow.*
+              - lib/libgwen.*
+              - lib/libBulletExampleBrowserLib.*
+              - lib/libBulletRoboticsGUI.*
+              - lib/pkgconfig/bullet_robotics_gui.pc
+              - opt/bullet/**
+            else:
+              - Library/bin/*.dll
+              - Library/lib/OpenGLWindow.lib
+              - Library/lib/gwen.lib
+              - Library/lib/BulletExampleBrowserLib.lib
+              - Library/lib/BulletRoboticsGUI.lib
+    requirements:
       run:
+        - ${{ pin_subpackage("libbullet", exact=True) }}
+      run_exports:
+        - ${{ pin_subpackage('libbullet', upper_bound='x.x') }}
+      run_constraints:
+        # bullet-cpp builds from before the libbullet split ship the same files
+        - bullet-cpp ==${{ version }} *_${{ build_number }}
+    tests:
+      - package_contents:
+          include:
+            - bullet/BulletSoftBody/btSoftBody.h
+          files:
+            exists:
+              - if: unix
+                then:
+                  - lib/pkgconfig/bullet.pc
+                  - lib/pkgconfig/bullet_robotics.pc
+                  - lib/cmake/bullet/BulletConfig.cmake
+                else:
+                  - Library/lib/cmake/bullet/BulletConfig.cmake
+                  - Library/lib/BussIK.lib
+                  - Library/lib/BulletCollision.lib
+            not_exists:
+              - if: linux
+                then:
+                  - lib/lib*.so
+                  - lib/lib*.so.*
+              - if: osx
+                then: lib/lib*.dylib
+              - if: unix
+                then:
+                  - bin/BulletExampleBrowser
+                  - lib/libOpenGLWindow.*
+                  - lib/libgwen.*
+                  - lib/libBulletExampleBrowserLib.*
+                  - lib/libBulletRoboticsGUI.*
+                  - opt/bullet/**
+                else:
+                  - Library/lib/OpenGLWindow.lib
+                  - Library/lib/gwen.lib
+
+  - package:
+      name: bullet-cpp
+    inherit: bullet-cpp-build
+    build:
+      files:
+        - if: unix
+          then:
+            - bin/BulletExampleBrowser
+            - lib/libOpenGLWindow.*
+            - lib/libgwen.*
+            - lib/libBulletExampleBrowserLib.*
+            - lib/libBulletRoboticsGUI.*
+            - lib/pkgconfig/bullet_robotics_gui.pc
+            - opt/bullet/**
+          else:
+            - Library/lib/OpenGLWindow.lib
+            - Library/lib/gwen.lib
+            - Library/lib/BulletExampleBrowserLib.lib
+            - Library/lib/BulletRoboticsGUI.lib
+    requirements:
+      build:
+        # The linking check reads the system libraries from the sysroot in the build environment of each output
+        - if: linux
+          then: ${{ stdlib("c") }}
+      host:
+        - ${{ pin_subpackage("libbullet", exact=True) }}
+        - if: linux
+          then: libgl-devel
+        - if: unix
+          then:
+            - xorg-libx11
+            - xorg-libxext
+      run:
+        - ${{ pin_subpackage("libbullet", exact=True) }}
+        # The headers, CMake and pkg-config files that bullet-cpp shipped before the libbullet split
+        - ${{ pin_subpackage("libbullet-devel", exact=True) }}
         - if: unix
           then:
             - xorg-libx11
@@ -59,24 +243,22 @@ outputs:
         - ${{ pin_subpackage('bullet-cpp', upper_bound='x.x') }}
     tests:
       - package_contents:
-          include:
-            - bullet/BulletSoftBody/btSoftBody.h
           files:
             - if: unix
               then:
-                - lib/pkgconfig/bullet.pc
-                - lib/cmake/bullet/BulletConfig.cmake
+                - lib/pkgconfig/bullet_robotics_gui.pc
               else:
-                - Library/lib/cmake/bullet/BulletConfig.cmake
-                - Library/lib/BussIK.lib
-                - Library/lib/BulletCollision.lib
+                - Library/lib/OpenGLWindow.lib
+                - Library/lib/BulletExampleBrowserLib.lib
+            - if: linux
+              then: bin/BulletExampleBrowser
           lib:
             - if: unix
               then:
                 - BulletExampleBrowserLib
+                - BulletRoboticsGUI
+                - OpenGLWindow
                 - gwen
-                - BussIK
-                - Bullet3Dynamics
 
   - package:
       name: pybullet
